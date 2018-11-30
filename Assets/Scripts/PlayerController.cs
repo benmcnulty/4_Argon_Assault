@@ -20,11 +20,11 @@ public class PlayerController : MonoBehaviour {
 
     float xThrow, yThrow;
 
-    bool playerCrashed = false;
+    bool controlEnabled = true;
 
 	// Update is called once per frame
 	void Update () {
-        if (!playerCrashed)
+        if (controlEnabled)
         {
             ProcessTranslation();
             ProcessRotation();
@@ -59,8 +59,8 @@ public class PlayerController : MonoBehaviour {
         transform.localRotation = Quaternion.Euler(pitch, yaw, roll);
     }
 
-    void PlayerCrashed()
+    void OnPlayerCrash() // String reference from CollisionHandler.cs
     {
-        playerCrashed = true;
+        controlEnabled = false;
     }
 }

@@ -1,23 +1,40 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CollisionHandler : MonoBehaviour {
+
+    [Tooltip("In Seconds")][SerializeField] float levelLoadDelay = 2f;
+    [Tooltip("FX Prefab on Player")] [SerializeField] GameObject crashFX;
+
+    bool playerCrashed = false;
+
+    int currentSceneIndex;
 
     // Use this for initialization
     void Start()
     {
-
+        currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
     }
 
     void OnTriggerEnter(Collider other)
     {
-        print("Player Triggered: " + other);
-        SendMessage("PlayerCrashed");
+        if (!playerCrashed)
+        {
+            print("Player Triggered: " + other);
+            SendMessage("OnPlayerCrash");
+        }
+        
     }
 
-    void PlayerCrashed()
+    void OnPlayerCrash()
     {
-        print("No more triggers");
+        playerCrashed = true;
+        crashFX.SetActive(true);
+        Invoke("ReloadCurrentScene", levelLoadDelay);
+    }
+
+    void ReloadCurrentScene()
+    {
+        SceneManager.LoadScene(currentSceneIndex);
     }
 }
