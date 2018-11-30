@@ -21,9 +21,9 @@ GameObject:
   - component: {fileID: 4248845843280306}
   - component: {fileID: 33029633340997774}
   - component: {fileID: 23169957688585980}
-  - component: {fileID: 65059941672270724}
+  - component: {fileID: 114994849534647530}
   m_Layer: 0
-  m_Name: Ship_04
+  m_Name: Boss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36,7 +36,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1469320689751860}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2.7109494}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -57,7 +57,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 76754057fe6d6f64aa00ca4273553e93, type: 2}
+  - {fileID: 2100000, guid: 29bb7953088d6ce4e9823f107e62381a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -84,15 +84,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1469320689751860}
   m_Mesh: {fileID: 4300004, guid: ec2ed6fafcc53c64ba923b9ef7d5749f, type: 3}
---- !u!65 &65059941672270724
-BoxCollider:
+--- !u!114 &114994849534647530
+MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1469320689751860}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.38488346, y: 0.5146694, z: 0.17804615}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a77f76e0e21c974484965c17b0bcc52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  crashFX: {fileID: 1965532712596622, guid: c409d37fa9a99de4fbf0f5d0d3b6c964, type: 2}
+  parent: {fileID: 0}
+  scorePerHit: 40
+  hits: 12
