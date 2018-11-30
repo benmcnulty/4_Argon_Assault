@@ -3,35 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 
-public class Player : MonoBehaviour {
+public class PlayerController : MonoBehaviour {
 
-    [Tooltip("In ms^-1")] [SerializeField] float speed = 10f;
+    [Header("General")]
+    [Tooltip("In ms^-1")] [SerializeField] float controlSpeed = 15f;
+    [Tooltip("In m")][SerializeField] float xRange = 10f;
+    [Tooltip("In m")] [SerializeField] float yRange = 7f;
 
-    [Tooltip("In m")][SerializeField] float xRange = 3.5f;
-    [Tooltip("In m")] [SerializeField] float yRange = 2.5f;
-
+    [Header("Screen-position Based")]
     [SerializeField] float positionPitchFactor = -5f;
-    [SerializeField] float controlPitchFactor = -20f;
+    [SerializeField] float positionYawFactor = 6f;
 
-    [SerializeField] float positionYawFactor = 8f;
-    [SerializeField] float controlRollFactor = -15f;
+    [Header("Control-throw Based")]
+    [SerializeField] float controlPitchFactor = -5f;
+    [SerializeField] float controlRollFactor = -30f;
 
     float xThrow, yThrow;
 
-    // Use this for initialization
-    void Start () {
-		
-	}
+    bool playerCrashed = false;
 
-    void OnTriggerEnter(Collider other)
-    {
-        print("Player Triggered: " + other);
-    }
-	
 	// Update is called once per frame
 	void Update () {
-        ProcessTranslation();
-        ProcessRotation();
+        if (!playerCrashed)
+        {
+            ProcessTranslation();
+            ProcessRotation();
+        }
     }
 
     private void ProcessTranslation()
@@ -39,11 +36,11 @@ public class Player : MonoBehaviour {
         xThrow = CrossPlatformInputManager.GetAxis("Horizontal");
         yThrow = CrossPlatformInputManager.GetAxis("Vertical");
 
-        float xOffset = xThrow * speed * Time.deltaTime;
+        float xOffset = xThrow * controlSpeed * Time.deltaTime;
         float rawXPos = transform.localPosition.x + xOffset;
         float clampedXPos = Mathf.Clamp(rawXPos, -xRange, xRange);
 
-        float yOffset = yThrow * speed * Time.deltaTime;
+        float yOffset = yThrow * controlSpeed * Time.deltaTime;
         float rawYPos = transform.localPosition.y + yOffset;
         float clampedYPos = Mathf.Clamp(rawYPos, -yRange, yRange);
 
@@ -60,5 +57,10 @@ public class Player : MonoBehaviour {
         float roll = xThrow * controlRollFactor;
 
         transform.localRotation = Quaternion.Euler(pitch, yaw, roll);
+    }
+
+    void PlayerCrashed()
+    {
+        playerCrashed = true;
     }
 }

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LevelManager : MonoBehaviour {
+public class LevelLoader : MonoBehaviour {
     // Use this for initialization
     void Start () {
         Invoke("LoadFirstScene", 2f);
